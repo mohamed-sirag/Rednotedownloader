@@ -71,7 +71,11 @@
             border: 1px solid var(--border);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
-
+        /* FAQ Accordion Styling */
+        details summary::-webkit-details-marker { display:none; }
+        details[open] summary i { transform: rotate(180deg); color: var(--primary); }
+        summary { list-style: none; }
+        
         /* Loading Spinner */
         .loader {
             border: 3px solid #f3f3f3;
@@ -111,6 +115,35 @@
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
+    <!-- SEO FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is Rednote Downloader?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Rednote Downloader is a free online tool that allows you to download videos and images from Rednote (Xiaohongshu) without any watermarks."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is there a limit on downloads?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, you can download as many videos and photos as you like. Our service is completely free and unlimited."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Do I need to install an app?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No installation is required. This is a web-based tool that works on any browser, including Chrome, Safari, and Firefox, on both desktop and mobile devices."
+        }
+      }]
+    }
+    </script>
 </head>
 <body class="flex flex-col min-h-screen">
 
@@ -199,6 +232,107 @@
                         <h3 class="font-bold mb-2">Download</h3>
                         <p class="text-slate-500">Download the media and save it to your device instantly.</p>
                     </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Supported URLs Section -->
+        <section id="supported-urls" class="py-20 px-4 bg-slate-50/50">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">Supported Link Formats</h2>
+                <p class="text-center text-slate-500 mb-10">We support all major Rednote and Xiaohongshu URL types:</p>
+                
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="card p-5 rounded-xl flex items-center gap-4 bg-white">
+                        <div class="bg-blue-50 p-3 rounded-lg text-blue-600">
+                            <i data-lucide="link-2" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-slate-900">Shortened App Links</p>
+                            <span class="link-badge">xhslink.com/XXXXX</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-5 rounded-xl flex items-center gap-4 bg-white">
+                        <div class="bg-purple-50 p-3 rounded-lg text-purple-600">
+                            <i data-lucide="globe" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-slate-900">Discovery Items</p>
+                            <div class="link-badge">xiaohongshu.com/discovery/
+                            item/XXXXX</div>
+                        </div>
+                    </div>
+
+                    <div class="card p-5 rounded-xl flex items-center gap-4 bg-white">
+                        <div class="bg-green-50 p-3 rounded-lg text-green-600">
+                            <i data-lucide="compass" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-slate-900">Explore Posts</p>
+                            <span class="link-badge">xiaohongshu.com/explore/XXX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section id="faq" class="py-20 px-4">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">Frequently Asked Questions</h2>
+                <p class="text-center text-slate-500 mb-12">Everything you need to know about Rednote Downloader.</p>
+                
+                <div class="space-y-4">
+                    <details class="group card rounded-xl overflow-hidden" open>
+                        <summary class="flex items-center justify-between p-5 cursor-pointer font-semibold text-lg select-none hover:bg-slate-50 transition-colors">
+                            What is Rednote Downloader?
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300"></i>
+                        </summary>
+                        <div class="p-5 pt-0 text-slate-600 leading-relaxed border-t border-slate-50">
+                            Rednote Downloader (also known as Xiaohongshu Downloader) is a free web-based tool that helps you save videos and high-quality images from the Xiaohongshu platform directly to your computer or phone.
+                        </div>
+                    </details>
+
+                    <details class="group card rounded-xl overflow-hidden" open>
+                        <summary class="flex items-center justify-between p-5 cursor-pointer font-semibold text-lg select-none hover:bg-slate-50 transition-colors">
+                            Does it remove watermarks?
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300"></i>
+                        </summary>
+                        <div class="p-5 pt-0 text-slate-600 leading-relaxed border-t border-slate-50">
+                            Yes! Our downloader fetches the original high-definition files from Rednote's servers, meaning the videos and images you download will be clean and free of any app watermarks.
+                        </div>
+                    </details>
+
+                    <details class="group card rounded-xl overflow-hidden" open>
+                        <summary class="flex items-center justify-between p-5 cursor-pointer font-semibold text-lg select-none hover:bg-slate-50 transition-colors">
+                            Is it free to use?
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300"></i>
+                        </summary>
+                        <div class="p-5 pt-0 text-slate-600 leading-relaxed border-t border-slate-50">
+                            Absolutely. We do not require any registration, subscriptions, or fees. You can download as much content as you want for personal use.
+                        </div>
+                    </details>
+
+                    <details class="group card rounded-xl overflow-hidden" open>
+                        <summary class="flex items-center justify-between p-5 cursor-pointer font-semibold text-lg select-none hover:bg-slate-50 transition-colors">
+                            Which devices are supported?
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300"></i>
+                        </summary>
+                        <div class="p-5 pt-0 text-slate-600 leading-relaxed border-t border-slate-50">
+                            Rednote Downloader is a web application, so it works on all modern devices with a browser, including iPhones (iOS), Android phones, Windows PCs, and Macs.
+                        </div>
+                    </details>
+
+                    <details class="group card rounded-xl overflow-hidden" open>
+                        <summary class="flex items-center justify-between p-5 cursor-pointer font-semibold text-lg select-none hover:bg-slate-50 transition-colors">
+                            Is it legal to download content?
+                            <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300"></i>
+                        </summary>
+                        <div class="p-5 pt-0 text-slate-600 leading-relaxed border-t border-slate-50">
+                            Downloading content for personal archiving and educational purposes is generally acceptable. However, you should always respect the copyright of the original creator. Do not redistribute or use the content for commercial purposes without permission.
+                        </div>
+                    </details>
                 </div>
             </div>
         </section>
