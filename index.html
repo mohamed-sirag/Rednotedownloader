@@ -528,7 +528,7 @@
                             <source src="${highRes.masterUrl}" type="video/mp4">
                         </video>
                     </div>
-                    <button onclick="download(this, '${highRes.masterUrl}', 'redDownloader-${item.video.media.videoId}.mp4')"  class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                    <button onclick="_download(this, '${highRes.masterUrl}', 'redDownloader-${item.video.media.videoId}.mp4')"  class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
                         <i data-lucide="download"></i> Download Video
                     </button>
                   </div></div>
@@ -574,6 +574,25 @@
             }, 300);
          }
          
+         
+         function _download(element, url, filename) {
+           element.disabled = true;
+           const apiurl = new URL('https://url-download-rednote.mohamed-k-sirag.workers.dev/');
+           apiurl.searchParams.append('url', url);
+           apiurl.searchParams.append('name', filename);
+           const response = await fetch(apiurl);
+           const blob = await response.blob();
+           const url = window.URL.createObjectURL(blob);
+           const a = document.createElement('a');
+           a.href = url;
+           a.download = filename; // You can try to parse the filename from headers too
+           document.body.appendChild(a);
+           a.click();
+        
+           // Cleanup
+           window.URL.revokeObjectURL(url);
+           a.remove();
+         }
          
          function selectImg(element) {
                 index = parseInt(element.getAttribute('name'), 10);
@@ -659,7 +678,27 @@
         }
         async function addImageToZip(zip, url) {
             try {
-                const response = await fetch(url);
+                const response = await fetch(url, {
+                "headers": {
+                  "accept": "*/*",
+                  "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+                  "cache-control": "no-cache",
+                  "pragma": "no-cache",
+                  "range": "bytes=0-",
+                  "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Chromium\";v=\"124\"",
+                  "sec-ch-ua-mobile": "?0",
+                  "sec-ch-ua-platform": "\"Linux\"",
+                  "sec-fetch-dest": "video",
+                  "sec-fetch-mode": "no-cors",
+                  "sec-fetch-site": "cross-site"
+                },
+                "referrer": "https://www.xiaohongshu.com/",
+                "referrerPolicy": "strict-origin-when-cross-origin",
+                "body": null,
+                "method": "GET",
+                "mode": "cors",
+                "credentials": "omit"
+                });
                 const blob = await response.blob();
                 const filename = `redDownloader-${url.substring(url.lastIndexOf('/') + 1)}.jpg`;
                 zip.file(filename, blob, { binary: true });
