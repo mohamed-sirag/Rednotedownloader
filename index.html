@@ -580,18 +580,16 @@
            const apiurl = new URL('https://url-download-rednote.mohamed-k-sirag.workers.dev/');
            apiurl.searchParams.append('url', url);
            apiurl.searchParams.append('name', filename);
-           const response = fetch(apiurl);
-           const blob = response.blob();
-           const blob_url = window.URL.createObjectURL(blob);
-           const a = document.createElement('a');
-           a.href = blob_url;
-           a.download = filename;
-           document.body.appendChild(a);
-           a.click();
-        
-           // Cleanup
-           window.URL.revokeObjectURL(blob_url);
-           a.remove();
+           fetch(apiurl)
+           .then(response => response.blob())
+           .then(blob => {
+              const link = document.createElement("a");
+              link.href = URL.createObjectURL(blob);
+              link.download = filename;
+              link.click();
+            })
+           .catch(console.error);
+           
          }
          
          function selectImg(element) {
