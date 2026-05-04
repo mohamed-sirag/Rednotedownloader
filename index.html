@@ -580,12 +580,12 @@
            const apiurl = new URL('https://url-download-rednote.mohamed-k-sirag.workers.dev/');
            apiurl.searchParams.append('url', url);
            apiurl.searchParams.append('name', filename);
-           const response = await fetch(apiurl);
-           const blob = await response.blob();
+           const response = fetch(apiurl);
+           const blob = response.blob();
            const url = window.URL.createObjectURL(blob);
            const a = document.createElement('a');
            a.href = url;
-           a.download = filename; // You can try to parse the filename from headers too
+           a.download = filename;
            document.body.appendChild(a);
            a.click();
         
