@@ -582,15 +582,15 @@
            apiurl.searchParams.append('name', filename);
            const response = fetch(apiurl);
            const blob = response.blob();
-           const blob-url = window.URL.createObjectURL(blob);
+           const blob_url = window.URL.createObjectURL(blob);
            const a = document.createElement('a');
-           a.href = blob-url;
+           a.href = blob_url;
            a.download = filename;
            document.body.appendChild(a);
            a.click();
         
            // Cleanup
-           window.URL.revokeObjectURL(blob-url);
+           window.URL.revokeObjectURL(blob_url);
            a.remove();
          }
          
