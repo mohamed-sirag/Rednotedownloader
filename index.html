@@ -519,6 +519,9 @@
                 highRes = item.video.media.stream.h264.reduce((prev, current) => {
                     return (prev.value > current.value) ? prev : current;
                 });
+                if (highRes.masterUrl.startsWith("http://")) {
+                    highRes.masterUrl = highRes.masterUrl.replace("http://", "https://");
+                }
                 html += `
                     <div class="rounded-xl overflow-hidden bg-black aspect-video mb-6">
                         <video controls class="w-full h-full">
@@ -535,6 +538,9 @@
                 let op = `<select id="select" name="choice" multiple>`;
                 html += `<div id="imgs" class="grid grid-cols-2 gap-2 mb-6">`;
                 item.imageList.forEach((img, index) =>{ 
+                if (img.urlDefault.startsWith("http://")) {
+                    img.urlDefault = img.urlDefault.replace("http://", "https://");
+                }
                      op +=`<option value="${img.urlDefault}" selected>foo</option>`
                      html += `<div class="aspect-square rounded-lg bg-slate-100 ">
                                 <img src="${img.urlDefault}" onclick="selectImg(this)" name="${index}" class="image effect rounded-lg w-full h-full object-cover"/>
@@ -546,7 +552,7 @@
                         <p class="text-center text-slate-400 text-sm">Right-click images to select or click below</p>
                         <input id="check" onclick="check(this)" class="rounded-lg box" type="checkbox" value="yes">
                         
-                        <button id="id" onclick="downloadZIP(this)" class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                        <button id="id" onclick="downloadZIP(this, `${item.noteId}`)" class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
                             <i data-lucide="image"></i> Image's ZIP
                         </button>
                     </div>
@@ -581,13 +587,13 @@
                 }
           }
 
-          function downloadZIP(element) {
+          function downloadZIP(element, id) {
               const select = document.getElementById('select');
               const options = select.selectedOptions;
               const values = Array.from(options).map(option => option.value);
               if(values.length > 0){
                   element.disabled = true;
-                  downloadImagesAsZip(values, `redDownloader.zip`);
+                  downloadImagesAsZip(values, `redDownloader-${id}.zip`);
               }
           }
             
