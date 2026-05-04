@@ -613,7 +613,27 @@
         
         function download(element, url, filename) {
            element.disabled = true;
-           fetch(url)
+           fetch(url, {
+           "headers": {
+             "accept": "*/*",
+             "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+             "cache-control": "no-cache",
+             "pragma": "no-cache",
+             "range": "bytes=0-",
+             "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Chromium\";v=\"124\"",
+             "sec-ch-ua-mobile": "?0",
+             "sec-ch-ua-platform": "\"Linux\"",
+             "sec-fetch-dest": "video",
+             "sec-fetch-mode": "no-cors",
+             "sec-fetch-site": "cross-site"
+           },
+           "referrer": "https://www.xiaohongshu.com/",
+           "referrerPolicy": "strict-origin-when-cross-origin",
+           "body": null,
+           "method": "GET",
+           "mode": "cors",
+           "credentials": "omit"
+          })
           .then(response => response.blob())
           .then(blob => {
               const link = document.createElement("a");
@@ -657,3 +677,5 @@
     
 </body>
 </html>
+
+
