@@ -617,7 +617,7 @@
         function download(element, url, filename) {
            element.disabled = true;
            const video = document.getElementById('video');
-           const videoSrc = video.src;
+           const videoSrc = video.querySelector('source').src;
            console.log(videoSrc);
            const a = document.createElement('a');
            a.href = videoSrc;
