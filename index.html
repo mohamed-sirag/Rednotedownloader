@@ -616,38 +616,15 @@
         
         function download(element, url, filename) {
            element.disabled = true;
-           /*
-           const video = document.getElementById('video');
-           const videoSrc = video.src;
-           console.log(videoSrc);
-           const a = document.createElement('a');
-           a.href = videoSrc;
-           a.download = filename;
-           document.body.appendChild(a);
-           a.click();
-           document.body.removeChild(a);
-           */
            fetch(url)
-           .then(response => {
-              const fileStream = streamSaver.createWriteStream(filename, {
-                  size: response.headers.get('content-length')
-              });
-              const readableStream = response.body;
-              if (window.WritableStream && readableStream.pipeTo) {
-                  return readableStream.pipeTo(fileStream)
-                      .then(() => console.log('Download complete!'));
-              }
-              const writer = fileStream.getWriter();
-              const reader = readableStream.getReader();
-              const pump = () => reader.read()
-                 .then(res => res.done 
-                 ? writer.close() 
-                 : writer.write(res.value).then(pump)
-              );
-              pump();
+           .then(response => response.blob())
+           .then(blob => {
+              const link = document.createElement("a");
+              link.href = URL.createObjectURL(blob);
+              link.download = filename;
+              link.click();
            })
-           .catch(console.error);
-           
+          .catch(console.error);
         }
         
         function downloadAll(data) {
