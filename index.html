@@ -252,7 +252,7 @@
                 <!-- Data will be injected here -->
             </div>
         </section>
-        <!-- ad -->
+        <!-- ad >
         <script>
             atOptions = {
             'key' : '3812fe59894c412bb954178696b82328',
@@ -262,7 +262,7 @@
             'params' : {}
             };
         </script>
-        <script src="https://www.highperformanceformat.com/3812fe59894c412bb954178696b82328/invoke.js"></script>
+        <script src="https://www.highperformanceformat.com/3812fe59894c412bb954178696b82328/invoke.js"></script-->
 
         <!-- How It Works -->
         <section id="how-it-works" class="py-20 px-4 bg-white border-y border-slate-200">
@@ -293,7 +293,7 @@
                 </div>
             </div>
         </section>
-        <!-- ad -->
+        <!-- ad >
         <script>
             atOptions = {
             'key' : '3812fe59894c412bb954178696b82328',
@@ -303,7 +303,7 @@
             'params' : {}
             };
         </script>
-        <script src="https://www.highperformanceformat.com/3812fe59894c412bb954178696b82328/invoke.js"></script>
+        <script src="https://www.highperformanceformat.com/3812fe59894c412bb954178696b82328/invoke.js"></script-->
 
         <!-- Supported URLs Section -->
         <section id="supported-urls" class="py-20 px-4 bg-slate-50/50">
@@ -346,7 +346,7 @@
             </div>
         </section>
         
-        <!-- ad -->
+        <!-- ad >
         <script>
             atOptions = {
             'key' : '3812fe59894c412bb954178696b82328',
@@ -356,7 +356,7 @@
             'params' : {}
             };
         </script>
-        <script src="https://www.highperformanceformat.com/3812fe59894c412bb954178696b82328/invoke.js"></script>
+        <script src="https://www.highperformanceformat.com/3812fe59894c412bb954178696b82328/invoke.js"></script-->
         
         <!-- FAQ Section -->
         <section id="faq" class="py-20 px-4">
@@ -552,7 +552,7 @@
                         <p class="text-center text-slate-400 text-sm">Right-click images to select or click below</p>
                         <input id="check" onclick="check(this)" class="rounded-lg box" type="checkbox" value="yes">
                         
-                        <button id="id" onclick="downloadZIP(this, ${item.noteId})" class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                        <button id="id" onclick="downloadZIP(this)" class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
                             <i data-lucide="image"></i> Image's ZIP
                         </button>
                     </div>
@@ -573,25 +573,8 @@
                });
             }, 300);
          }
-         
-         
-         function _download(element, url, filename) {
-           element.disabled = true;
-           const apiurl = new URL('https://url-download-rednote.mohamed-k-sirag.workers.dev/');
-           apiurl.searchParams.append('url', url);
-           apiurl.searchParams.append('name', filename);
-           fetch(apiurl)
-           .then(response => response.blob())
-           .then(blob => {
-              const link = document.createElement("a");
-              link.href = URL.createObjectURL(blob);
-              link.download = filename;
-              link.click();
-            })
-           .catch(console.error);
-           
-         }
-         
+
+        
          function selectImg(element) {
                 index = parseInt(element.getAttribute('name'), 10);
                 option = choice.querySelectorAll("option")[index]
@@ -604,13 +587,13 @@
                 }
           }
 
-          function downloadZIP(element, id) {
+          function downloadZIP(element) {
               const select = document.getElementById('select');
               const options = select.selectedOptions;
               const values = Array.from(options).map(option => option.value);
               if(values.length > 0){
                   element.disabled = true;
-                  downloadImagesAsZip(values, `redDownloader-${id}.zip`);
+                  downloadImagesAsZip(values, `redDownloader-${Date.now().toString()}.zip`);
               }
           }
             
@@ -630,25 +613,7 @@
         
         function download(element, url, filename) {
            element.disabled = true;
-           fetch(url, {
-           "headers": {
-             "accept": "*/*",
-             "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
-             "cache-control": "no-cache",
-             "pragma": "no-cache",
-             "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Chromium\";v=\"124\"",
-             "sec-ch:-ua-mobile": "?1",
-             "sec-ch-ua-platform": "\"Android\"",
-             "sec-fetch-dest": "empty",
-             "sec-fetch-mode": "cors",
-             "sec-fetch-site": "cross-site"
-             },
-           "referrerPolicy": "same-origin",
-           "body": null,
-           "method": "GET",
-           "mode": "cors",
-           "credentials": "omit"
-          })
+           fetch(url)
           .then(response => response.blob())
           .then(blob => {
               const link = document.createElement("a");
@@ -674,26 +639,7 @@
         }
         async function addImageToZip(zip, url) {
             try {
-                const response = await fetch(url, {
-                "headers": {
-                  "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
-                  "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
-                  "cache-control": "no-cache",
-                  "pragma": "no-cache",
-                  "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Chromium\";v=\"124\"",
-                  "sec-ch-ua-mobile": "?1",
-                  "sec-ch-ua-platform": "\"Android\"",
-                  "sec-fetch-dest": "image",
-                  "sec-fetch-mode": "no-cors",
-                  "sec-fetch-site": "cross-site"
-                  },
-                "referrerPolicy": "same-origin",
-                "body": null,
-                "method": "GET",
-                "mode": "cors",
-                "credentials": "omit"
-                });
-
+                const response = await fetch(url);
                 const blob = await response.blob();
                 const filename = `redDownloader-${url.substring(url.lastIndexOf('/') + 1)}.jpg`;
                 zip.file(filename, blob, { binary: true });
@@ -703,11 +649,11 @@
         }
     </script>
     
-    <!-- ad -->
+    <!-- ad >
     <script async="async" data-cfasync="false" src="https://pl29096591.profitablecpmratenetwork.com/c6e9bfada2d85c958c46effe1dcd81c1/invoke.js"></script>
     <div id="container-c6e9bfada2d85c958c46effe1dcd81c1"></div>
 
-    <script src="https://pl29096593.profitablecpmratenetwork.com/ef/4a/63/ef4a6361f751dda560f3e3d940f1d031.js"></script>
+    <script src="https://pl29096593.profitablecpmratenetwork.com/ef/4a/63/ef4a6361f751dda560f3e3d940f1d031.js"></script-->
     
 </body>
 </html>
