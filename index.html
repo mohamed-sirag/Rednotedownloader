@@ -17,6 +17,9 @@
     <meta property="og:url" content="https://rednote.downloader24.xyz/" />
     <meta property="og:image" content="https://rednote.downloader24.xyz/IMG_20260421_120743.jpg" />
     
+    <!--streamSaver-->
+    <script src="https://cdn.jsdelivr.net/npm/streamsaver@2.0.6/StreamSaver.min.js"></script>
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Lucide Icons -->
@@ -614,14 +617,25 @@
         function download(element, url, filename) {
            element.disabled = true;
            fetch(url)
-          .then(response => response.blob())
-          .then(blob => {
-              const link = document.createElement("a");
-              link.href = URL.createObjectURL(blob);
-              link.download = filename;
-              link.click();
-          })
-         .catch(console.error);
+           .then(response => {
+              const fileStream = streamSaver.createWriteStream(fileName, {
+                  size: response.headers.get('content-length') // Helps show progress in some browsers
+              });
+              const readableStream = response.body;
+              if (window.WritableStream && readableStream.pipeTo) {
+                  return readableStream.pipeTo(fileStream)
+                      .then(() => console.log('Download complete!'));
+              }
+              const writer = fileStream.getWriter();
+              const reader = readableStream.getReader();
+              const pump = () => reader.read()
+                 .then(res => res.done 
+                 ? writer.close() 
+                 : writer.write(res.value).then(pump)
+              );
+              pump();
+           })
+           .catch(console.error);
         }
         
         function downloadAll(data) {
