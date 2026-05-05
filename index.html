@@ -17,9 +17,6 @@
     <meta property="og:url" content="https://rednote.downloader24.xyz/" />
     <meta property="og:image" content="https://rednote.downloader24.xyz/IMG_20260421_120743.jpg" />
     
-    <!--streamSaver-->
-    <script src="https://cdn.jsdelivr.net/npm/streamsaver@2.0.6/StreamSaver.min.js"></script>
-    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Lucide Icons -->
@@ -255,7 +252,7 @@
                 <!-- Data will be injected here -->
             </div>
         </section>
-        <!-- ad -->
+        <!-- ad >
         <script>
             atOptions = {
             'key' : '3812fe59894c412bb954178696b82328',
@@ -265,7 +262,7 @@
             'params' : {}
             };
         </script>
-        <script src="https://www.highperformanceformat.com/3812fe59894c412bb954178696b82328/invoke.js"></script>
+        <script src="https://www.highperformanceformat.com/3812fe59894c412bb954178696b82328/invoke.js"></script-->
 
         <!-- How It Works -->
         <section id="how-it-works" class="py-20 px-4 bg-white border-y border-slate-200">
@@ -527,7 +524,7 @@
                 }
                 html += `
                     <div class="rounded-xl overflow-hidden bg-black aspect-video mb-6">
-                        <video controls class="w-full h-full" id="video">
+                        <video controls class="w-full h-full">
                             <source src="${highRes.masterUrl}" type="video/mp4">
                         </video>
                     </div>
@@ -617,14 +614,14 @@
         function download(element, url, filename) {
            element.disabled = true;
            fetch(url)
-           .then(response => response.blob())
-           .then(blob => {
+          .then(response => response.blob())
+          .then(blob => {
               const link = document.createElement("a");
               link.href = URL.createObjectURL(blob);
               link.download = filename;
               link.click();
-           })
-          .catch(console.error);
+          })
+         .catch(console.error);
         }
         
         function downloadAll(data) {
