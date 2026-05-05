@@ -527,7 +527,7 @@
                 }
                 html += `
                     <div class="rounded-xl overflow-hidden bg-black aspect-video mb-6">
-                        <video controls class="w-full h-full">
+                        <video controls class="w-full h-full" id="video">
                             <source src="${highRes.masterUrl}" type="video/mp4">
                         </video>
                     </div>
@@ -616,7 +616,7 @@
         
         function download(element, url, filename) {
            element.disabled = true;
-           const video = document.querySelector('video');
+           const video = document.getElementById('video');
            const videoSrc = video.src;
 
            const a = document.createElement('a');
