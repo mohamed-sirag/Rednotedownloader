@@ -620,7 +620,7 @@
            const videoSrc = video.src;
            console.log(videoSrc);
            const a = document.createElement('a');
-           a.href = url;
+           a.href = videoSrc;
            a.download = filename;
            document.body.appendChild(a);
            a.click();
