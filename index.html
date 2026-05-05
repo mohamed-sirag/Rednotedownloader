@@ -621,7 +621,7 @@
 
            const a = document.createElement('a');
            a.href = videoSrc;
-           a.download = 'my-video.mp4';
+           a.download = filename;
            document.body.appendChild(a);
            a.click();
            document.body.removeChild(a);
