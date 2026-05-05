@@ -528,7 +528,7 @@
                             <source src="${highRes.masterUrl}" type="video/mp4">
                         </video>
                     </div>
-                    <button onclick="_download(this, '${highRes.masterUrl}', 'redDownloader-${item.video.media.videoId}.mp4')"  class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                    <button onclick="download(this, '${highRes.masterUrl}', 'redDownloader-${item.video.media.videoId}.mp4')"  class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
                         <i data-lucide="download"></i> Download Video
                     </button>
                   </div></div>
@@ -636,16 +636,14 @@
              "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
              "cache-control": "no-cache",
              "pragma": "no-cache",
-             "range": "bytes=0-",
              "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Chromium\";v=\"124\"",
-             "sec-ch-ua-mobile": "?0",
-             "sec-ch-ua-platform": "\"Linux\"",
-             "sec-fetch-dest": "video",
-             "sec-fetch-mode": "no-cors",
+             "sec-ch:-ua-mobile": "?1",
+             "sec-ch-ua-platform": "\"Android\"",
+             "sec-fetch-dest": "empty",
+             "sec-fetch-mode": "cors",
              "sec-fetch-site": "cross-site"
-           },
-           "referrer": "https://www.xiaohongshu.com/",
-           "referrerPolicy": "strict-origin-when-cross-origin",
+             },
+           "referrerPolicy": "same-origin",
            "body": null,
            "method": "GET",
            "mode": "cors",
@@ -678,25 +676,24 @@
             try {
                 const response = await fetch(url, {
                 "headers": {
-                  "accept": "*/*",
+                  "accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
                   "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
                   "cache-control": "no-cache",
                   "pragma": "no-cache",
-                  "range": "bytes=0-",
                   "sec-ch-ua": "\"Not-A.Brand\";v=\"99\", \"Chromium\";v=\"124\"",
-                  "sec-ch-ua-mobile": "?0",
-                  "sec-ch-ua-platform": "\"Linux\"",
-                  "sec-fetch-dest": "video",
+                  "sec-ch-ua-mobile": "?1",
+                  "sec-ch-ua-platform": "\"Android\"",
+                  "sec-fetch-dest": "image",
                   "sec-fetch-mode": "no-cors",
                   "sec-fetch-site": "cross-site"
-                },
-                "referrer": "https://www.xiaohongshu.com/",
-                "referrerPolicy": "strict-origin-when-cross-origin",
+                  },
+                "referrerPolicy": "same-origin",
                 "body": null,
                 "method": "GET",
                 "mode": "cors",
                 "credentials": "omit"
                 });
+
                 const blob = await response.blob();
                 const filename = `redDownloader-${url.substring(url.lastIndexOf('/') + 1)}.jpg`;
                 zip.file(filename, blob, { binary: true });
@@ -714,5 +711,4 @@
     
 </body>
 </html>
-
 
