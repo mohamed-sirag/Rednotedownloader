@@ -527,8 +527,8 @@
                 }
                 html += `
                     <div class="rounded-xl overflow-hidden bg-black aspect-video mb-6">
-                        <video controls class="w-full h-full" id="video">
-                            <source src="${highRes.masterUrl}" type="video/mp4">
+                        <video controls class="w-full h-full" id="video" src="${highRes.masterUrl}" type="video/mp4">
+                            <!--source src="${highRes.masterUrl}" type="video/mp4"-->
                         </video>
                     </div>
                     <button onclick="download(this, '${highRes.masterUrl}', 'redDownloader-${item.video.media.videoId}.mp4')"  class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
@@ -617,7 +617,7 @@
         function download(element, url, filename) {
            element.disabled = true;
            const video = document.getElementById('video');
-           const videoSrc = video.querySelector('source').src;
+           const videoSrc = video.src;
            console.log(videoSrc);
            const a = document.createElement('a');
            a.href = videoSrc;
