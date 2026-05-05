@@ -616,6 +616,7 @@
         
         function download(element, url, filename) {
            element.disabled = true;
+           /*
            const video = document.getElementById('video');
            const videoSrc = video.src;
            console.log(videoSrc);
@@ -625,7 +626,7 @@
            document.body.appendChild(a);
            a.click();
            document.body.removeChild(a);
-           /*
+           */
            fetch(url)
            .then(response => {
               const fileStream = streamSaver.createWriteStream(filename, {
@@ -646,7 +647,7 @@
               pump();
            })
            .catch(console.error);
-           */
+           
         }
         
         function downloadAll(data) {
