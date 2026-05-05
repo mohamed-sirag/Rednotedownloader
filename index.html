@@ -618,8 +618,8 @@
            element.disabled = true;
            fetch(url)
            .then(response => {
-              const fileStream = streamSaver.createWriteStream(fileName, {
-                  size: response.headers.get('content-length') // Helps show progress in some browsers
+              const fileStream = streamSaver.createWriteStream(filename, {
+                  size: response.headers.get('content-length')
               });
               const readableStream = response.body;
               if (window.WritableStream && readableStream.pipeTo) {
