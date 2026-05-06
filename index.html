@@ -540,18 +540,14 @@
                     const urlDefault=new URL("https://url-download-rednote.mohamed-k-sirag.workers.dev/");
                     urlDefault.searchParams.append('url', img.urlDefault);
                     urlDefault.searchParams.append('type', "image/jpeg");
-                    urlDefault.searchParams.append('filename', `redDownloader-${img.urlDefault.substring(img.urlDefault.lastIndexOf('/') + 1)}.jpg`)
-                    fetch(urlDefault)
-                    .then(response => response.blob())
-                    .then(blob => {
-                        const blob_url = URL.createObjectURL(blob);
-                        console.log(blob_url);
-                        op +=`<option value="${blob_url}" selected>foo</option>`
-                        html += `<div class="aspect-square rounded-lg bg-slate-100 ">
-                                <img src="${blob_url}" onclick="selectImg(this)" name="${index}" class="image effect rounded-lg w-full h-full object-cover" onmousedown="start(this)" onmouseup="stop()" ontouchstart="start(this)" ontouchend="stop()" oncontextmenu="return false;"/>
-                              </div>`
-                    })
-                    .catch(console.error);
+                    urlDefault.searchParams.append('filename', `redDownloader-${img.urlDefault.substring(img.urlDefault.lastIndexOf('/') + 1)}.jpg`);
+                    const res = await fetch(urlDefault);
+                    const blob = await res.blob();
+                    const blob_url = URL.createObjectURL(blob);
+                    op +=`<option value="${blob_url}" selected>foo</option>`
+                    html += `<div class="aspect-square rounded-lg bg-slate-100 ">
+                                <img src="${blob_url}" onclick="selectImg(this)" name="${index}" class="image effect rounded-lg w-full h-full object-cover" onmousedown="start(this)" onmouseup="stop()" ontouchstart="start(this)" ontouchend="stop()" oncontextmenu="return false;" alt="Blob Image"/>
+                             </div>`
                   });
                  html += `
                     </div>
