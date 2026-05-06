@@ -547,6 +547,7 @@
                         const base64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
                         const mimeType = "image/jpeg";
                         const dataUri = `data:${mimeType};base64,${base64}`;
+                        console.log(dataUri);
                         op +=`<option value="${dataUri}" selected>foo</option>`
                         html += `<div class="aspect-square rounded-lg bg-slate-100 ">
                                 <img src="${dataUri}" onclick="selectImg(this)" name="${index}" class="image effect rounded-lg w-full h-full object-cover" onmousedown="start(this)" onmouseup="stop()" ontouchstart="start(this)" ontouchend="stop()" oncontextmenu="return false;"/>
