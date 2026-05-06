@@ -540,7 +540,7 @@
                     const urlDefault=new URL("https://url-download-rednote.mohamed-k-sirag.workers.dev/");
                     urlDefault.searchParams.append('url', img.urlDefault);
                     urlDefault.searchParams.append('type', "image/jpeg");
-                    urlDefault.searchParams.append('filename', `redDownloader-${img.substring(img.lastIndexOf('/') + 1)}.jpg`)
+                    urlDefault.searchParams.append('filename', `redDownloader-${img.urlDefault.substring(img.lastIndexOf('/') + 1)}.jpg`)
                      op +=`<option value="${urlDefault}" selected>foo</option>`
                      html += `<div class="aspect-square rounded-lg bg-slate-100 ">
                                 <img src="${urlDefault}" onclick="selectImg(this)" name="${index}" class="image effect rounded-lg w-full h-full object-cover"/>
