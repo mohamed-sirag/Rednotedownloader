@@ -619,6 +619,7 @@
            const link = document.createElement("a");
            link.href = url;
            link.download = filename;
+           link.target = "_blank";
            link.click();
         }
         
@@ -632,6 +633,7 @@
                     const link = document.createElement("a");
                     link.href = url;
                     link.download = `redDownloader-${Date.now().toString()}.jpg`;
+                    link.target = "_blank";
                     link.click();
                 });
                 
