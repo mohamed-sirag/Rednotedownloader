@@ -533,7 +533,7 @@
                             <source src="${masterUrl}" type="video/mp4">
                         </video>
                     </div>
-                    <button onclick="downloadWithProgress(this, '${masterUrl}', 'redDownloader-${item.video.media.videoId}.mp4')"  class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                    <button onclick="download(this, '${masterUrl}', 'redDownloader-${item.video.media.videoId}.mp4')"  class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
                         <i data-lucide="download"></i> Download Video
                     </button>
                   </div></div>
@@ -665,15 +665,10 @@
         
         function download(element, url, filename) {
            element.disabled = true;
-           fetch(url)
-          .then(response => response.blob())
-          .then(blob => {
-              const link = document.createElement("a");
-              link.href = URL.createObjectURL(blob);
-              link.download = filename;
-              link.click();
-          })
-         .catch(console.error);
+           const link = document.createElement("a");
+           link.href = URL.createObjectURL(url);
+           link.download = filename;
+           link.click();
         }
         
         function downloadAll(data) {
