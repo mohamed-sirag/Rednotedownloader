@@ -524,13 +524,16 @@
                 if (highRes.masterUrl.startsWith("http://")) {
                     highRes.masterUrl = highRes.masterUrl.replace("http://", "https://");
                 }
+                const masterUrl=new URL("https://url-download-rednote.mohamed-k-sirag.workers.dev/");
+                masterUrl.searchParams.append('url', highRes.masterUrl);
+                masterUrl.searchParams.append('type', "video/mp4");
                 html += `
                     <div class="rounded-xl overflow-hidden bg-black aspect-video mb-6">
                         <video controls referrerpolicy="no-referrer" class="w-full h-full">
-                            <source src="${highRes.masterUrl}" type="video/mp4">
+                            <source src="${masterUrl}" type="video/mp4">
                         </video>
                     </div>
-                    <button onclick="download(this, '${highRes.masterUrl}', 'redDownloader-${item.video.media.videoId}.mp4')"  class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                    <button onclick="download(this, '${masterUrl}', 'redDownloader-${item.video.media.videoId}.mp4')"  class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
                         <i data-lucide="download"></i> Download Video
                     </button>
                   </div></div>
