@@ -114,12 +114,10 @@
         }
         
         .overlay {
-            position: absolute; /* Positions the overlay relative to the container */
-            top: 0;
-            left: 0;
-            /* Adjust width, height, background, opacity as needed */
-            display: none; /* Initially hidden */
-            z-index: 1; /* Ensures it appears on top */
+             content: "";
+             position: absolute;
+             top: 0; left: 0; width: 100%; height: 100%;
+             background-color: rgba(0, 0, 0, 0.6);
          }
          .image-wrapper {
              position: relative;
@@ -543,10 +541,16 @@
                     urlDefault.searchParams.append('url', img.urlDefault);
                     urlDefault.searchParams.append('type', "image/jpeg");
                     urlDefault.searchParams.append('filename', `redDownloader-${img.urlDefault.substring(img.urlDefault.lastIndexOf('/') + 1)}.jpg`)
-                     op +=`<option value="${urlDefault}" selected>foo</option>`
-                     html += `<div class="aspect-square rounded-lg bg-slate-100 ">
-                                <img src="${urlDefault}" onclick="selectImg(this)" name="${index}" class="image effect rounded-lg w-full h-full object-cover" onmousedown="start(this)" onmouseup="stop()" ontouchstart="start(this)" ontouchend="stop()" oncontextmenu="return false;"/>
+                    fetch(url)
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = URL.createObjectURL(blob);
+                        op +=`<option value="${url}" selected>foo</option>`
+                        html += `<div class="aspect-square rounded-lg bg-slate-100 ">
+                                <img src="${url}" onclick="selectImg(this)" name="${index}" class="image effect rounded-lg w-full h-full object-cover" onmousedown="start(this)" onmouseup="stop()" ontouchstart="start(this)" ontouchend="stop()" oncontextmenu="return false;"/>
                               </div>`
+                    })
+                    .catch(console.error);
                   });
                  html += `
                     </div>
@@ -554,7 +558,7 @@
                         <p class="text-center text-slate-400 text-sm">Right-click images to select or click below</p>
                         <input id="check" onclick="check(this)" class="rounded-lg box" type="checkbox" value="yes">
                         
-                        <button id="id" onclick="downloadAll(this)" class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                        <button id="id" onclick="downloadZIP(this)" class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
                             <i data-lucide="image"></i>Downloade Image's
                         </button>
                     </div>
@@ -588,16 +592,6 @@
                     element.classList.add('effect');
                 }
           }
-
-          function downloadZIP(element) {
-              const select = document.getElementById('select');
-              const options = select.selectedOptions;
-              const values = Array.from(options).map(option => option.value);
-              if(values.length > 0){
-                  element.disabled = true;
-                  downloadImagesAsZip(values, `redDownloader-${Date.now().toString()}.zip`);
-              }
-          }
             
           function check(element) {
               if (element.checked) {
@@ -614,8 +608,8 @@
             
         
        async function download(element, url, filename) {
-           element.disabled = true;
-           element.style.backgroundColor="rgba(0, 0, 0, .6)";
+           element.style.pointerEvents = 'none';
+           elements.classList.add('overlay');
            const link = document.createElement("a");
            link.href = url;
            link.download = filename;
@@ -623,40 +617,15 @@
            link.click();
         }
         
-        function downloadAll(element) {
-            element.disabled = true;
-            const select = document.getElementById('select');
-            const options = select.selectedOptions;
-            const values = Array.from(options).map(option => option.value);
-            if(values.length > 0){
-                values.map(url => {
-                    const link = document.createElement("a");
-                    link.href = url;
-                    link.download = `redDownloader-${Date.now().toString()}.jpg`;
-                    link.target = "_blank";
-                    link.click();
-                });
-                
-            }
-        }
-        
-        async function downloadImagesAsZip(imageUrls, zipFilename) {
-            const zip = new JSZip();
-            const promises = imageUrls.map(url => addImageToZip(zip, url));
-            await Promise.all(promises);
-            const content = await zip.generateAsync({ type: 'blob', streamFiles: true });
-            saveAs(content, zipFilename);
-        }
-        async function addImageToZip(zip, url) {
-            try {
-                const response = await fetch(url);
-                const blob = await response.blob();
-                const filename = `redDownloader-${url.substring(url.lastIndexOf('/') + 1)}.jpg`;
-                zip.file(filename, blob, { binary: true });
-            } catch (error) {
-                console.error(`Error fetching ${url}:`, error);
-            }
-        }
+        function downloadZIP(element) {
+              const select = document.getElementById('select');
+              const options = select.selectedOptions;
+              const values = Array.from(options).map(option => option.value);
+              if(values.length > 0){
+                  element.disabled = true;
+               //   download(element, url, `redDownloader-${Date.now().toString()}.zip`);
+              }
+          }
         
         let timer;
         const delay = 500;
