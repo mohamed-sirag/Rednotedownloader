@@ -616,55 +616,8 @@
               }
           }
             
-        async function downloadWithProgress(element, apiUrl, fileName) {
-            const response = await fetch(apiUrl);
-  
-            // 1. Get the total size from headers
-            const total = parseInt(response.headers.get('content-length'), 10);
-            if (isNaN(total)) {
-            console.warn("Content-Length missing. Progress bar will be indeterminate.");
-            }
-
-            const reader = response.body.getReader();
-            let loaded = 0;
-            const chunks = []; // Array to store the chunks of data
-
-            // 2. Read the stream
-            while (true) {
-            const { done, value } = await reader.read();
-
-            if (done) break;
-
-            chunks.push(value);
-            loaded += value.length;
-
-            // 3. Update Progress
-            if (total) {
-            const percent = Math.round((loaded / total) * 100);
-            console.log(`Progress: ${percent}%`);
-            // Update your UI element here:
-            element.innerText = `Downloading: ${percent}%`;
-            }
-            }
-
-            // 4. Combine chunks into a single Blob
-            const blob = new Blob(chunks, { type: response.headers.get('content-type') });
-
-            // 5. Trigger the Browser Download
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = fileName || 'video.mp4';
-            document.body.appendChild(a);
-            a.click();
-  
-            // Cleanup
-            window.URL.revokeObjectURL(url);
-            a.remove();
-            console.log("Download complete!");
-        }
         
-        function download(element, url, filename) {
+       async function download(element, url, filename) {
            element.disabled = true;
            const link = document.createElement("a");
            link.href = url;
