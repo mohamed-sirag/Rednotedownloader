@@ -666,7 +666,7 @@
         function download(element, url, filename) {
            element.disabled = true;
            const link = document.createElement("a");
-           link.href = URL.createObjectURL(url);
+           link.href = url;
            link.download = filename;
            link.click();
         }
