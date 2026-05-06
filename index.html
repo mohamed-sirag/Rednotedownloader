@@ -527,6 +527,7 @@
                 const masterUrl=new URL("https://url-download-rednote.mohamed-k-sirag.workers.dev/");
                 masterUrl.searchParams.append('url', highRes.masterUrl);
                 masterUrl.searchParams.append('type', "video/mp4");
+                masterUrl.searchParams.append('filename', `redDownloader-${item.video.media.videoId}.mp4`);
                 html += `
                     <div class="rounded-xl overflow-hidden bg-black aspect-video mb-6">
                         <video controls referrerpolicy="no-referrer" class="w-full h-full">
