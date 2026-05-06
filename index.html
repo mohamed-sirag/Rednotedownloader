@@ -541,7 +541,7 @@
                     urlDefault.searchParams.append('url', img.urlDefault);
                     urlDefault.searchParams.append('type', "image/jpeg");
                     urlDefault.searchParams.append('filename', `redDownloader-${img.urlDefault.substring(img.urlDefault.lastIndexOf('/') + 1)}.jpg`)
-                    fetch(url)
+                    fetch(urlDefault)
                     .then(response => response.blob())
                     .then(blob => {
                         const blob_url = URL.createObjectURL(blob);
