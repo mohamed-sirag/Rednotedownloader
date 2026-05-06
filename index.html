@@ -544,10 +544,10 @@
                     fetch(url)
                     .then(response => response.blob())
                     .then(blob => {
-                        const url = URL.createObjectURL(blob);
-                        op +=`<option value="${url}" selected>foo</option>`
+                        const blob_url = URL.createObjectURL(blob);
+                        op +=`<option value="${blob_url}" selected>foo</option>`
                         html += `<div class="aspect-square rounded-lg bg-slate-100 ">
-                                <img src="${url}" onclick="selectImg(this)" name="${index}" class="image effect rounded-lg w-full h-full object-cover" onmousedown="start(this)" onmouseup="stop()" ontouchstart="start(this)" ontouchend="stop()" oncontextmenu="return false;"/>
+                                <img src="${blob_url}" onclick="selectImg(this)" name="${index}" class="image effect rounded-lg w-full h-full object-cover" onmousedown="start(this)" onmouseup="stop()" ontouchstart="start(this)" ontouchend="stop()" oncontextmenu="return false;"/>
                               </div>`
                     })
                     .catch(console.error);
