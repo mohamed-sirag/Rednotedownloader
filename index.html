@@ -515,14 +515,14 @@
                 const masterUrl=new URL("https://rednoteapi.downloader24..xyz/proxy");
                 masterUrl.searchParams.append('url', highRes.masterUrl);
                 masterUrl.searchParams.append('type', "video/mp4");
-                masterUrl.searchParams.append('filename', `redDownloader-${item.video.media.videoId}.mp4`);
+                masterUrl.searchParams.append('filename', `redDownloader-${Date.now().toString()}.mp4`);
                 html += `
                     <div class="rounded-xl overflow-hidden bg-black aspect-video mb-6">
                         <video controls referrerpolicy="no-referrer" class="w-full h-full">
                             <source src="${masterUrl}" type="video/mp4">
                         </video>
                     </div>
-                    <button onclick="download(this, '${masterUrl}', 'redDownloader-${item.video.media.videoId}.mp4')"  class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                    <button onclick="download(this, '${masterUrl}', 'redDownloader-${Date.now().toString()}.mp4')"  class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
                         <i data-lucide="download"></i> Download Video
                     </button>
                   </div></div>
@@ -538,11 +538,11 @@
                     const urlDefault=new URL("https://rednoteapi.downloader24.xyz/proxy");
                     urlDefault.searchParams.append('url', img.urlDefault);
                     urlDefault.searchParams.append('type', "image/jpeg");
-                    urlDefault.searchParams.append('filename', `redDownloader-${img.urlDefault.substring(img.urlDefault.lastIndexOf('/') + 1)}.jpg`);
+                    urlDefault.searchParams.append('filename', `redDownloader-${Date.now().toString()}.jpg`);
                     
                     op +=`<option value="${urlDefault}" selected>foo</option>`
                     html += `<div class="space-y-3 aspect-square rounded-lg bg-slate-100 ">
-                                <img src="${urlDefault}" name="${index}" class="image effect rounded-lg w-full h-full object-cover" onmousedown="start(this)" onmouseup="stop()" ontouchstart="start(this)" ontouchend="stop()" oncontextmenu="return false;" alt="Image"/>
+                                <img src="${urlDefault}" name="${index}" class="image effect rounded-lg w-full h-full object-cover" oncontextmenu="return false;" alt="Image"/>
                                 <button id="id" onclick="download(this, '${urlDefault}', 'redDownloader-${Date.now().toString()}.jpg')" class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
                                      <i data-lucide="download"></i>Downloade
                                 </button>
@@ -578,7 +578,7 @@
 
        async function download(element, url, filename) {
            element.style.pointerEvents = 'none';
-           element.classList.add('overlay');
+           //element.classList.add('overlay');
            const link = document.createElement("a");
            link.href = url;
            link.download = filename;
