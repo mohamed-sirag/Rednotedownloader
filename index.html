@@ -538,12 +538,12 @@
                     const urlDefault=new URL("https://rednoteapi.downloader24.xyz/proxy");
                     urlDefault.searchParams.append('url', img.urlDefault);
                     urlDefault.searchParams.append('type', "image/jpeg");
-                    urlDefault.searchParams.append('filename', `redDownloader-${Date.now().toString()}.jpg`);
+                    urlDefault.searchParams.append('filename', `redDownloader-${Date.now().toString()}${index}.jpg`);
                     
                     op +=`<option value="${urlDefault}" selected>foo</option>`
                     html += `<div class="space-y-3 aspect-square rounded-lg bg-slate-100 ">
                                 <img src="${urlDefault}" name="${index}" class="image effect rounded-lg w-full h-full object-cover" oncontextmenu="return false;" alt="Image"/>
-                                <button id="id" onclick="download(this, '${urlDefault}', 'redDownloader-${Date.now().toString()}.jpg')" class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                                <button id="id" onclick="download(this, '${urlDefault}', 'redDownloader-${Date.now().toString()}${index}.jpg')" class="btn-primary w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2">
                                      <i data-lucide="download"></i>Downloade
                                 </button>
                              </div>`
@@ -578,6 +578,7 @@
 
        async function download(element, url, filename) {
            element.style.pointerEvents = 'none';
+           element.style.display = 'none';
            //element.classList.add('overlay');
            const link = document.createElement("a");
            link.href = url;
