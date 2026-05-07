@@ -461,7 +461,7 @@
             btnLoader.classList.remove('hidden');
             
             try {
-                const apiurl = new URL("https://rednote.downloader24.xyz/get");
+                const apiurl = new URL("https://rednoteapi.downloader24.xyz/get");
                 apiurl.searchParams.append('url', url);
                 const response = await fetch(apiurl);
                 if (!response.ok) throw new Error('Failed to start worker');
@@ -512,7 +512,7 @@
                 if (highRes.masterUrl.startsWith("http://")) {
                     highRes.masterUrl = highRes.masterUrl.replace("http://", "https://");
                 }
-                const masterUrl=new URL("https://rednote.downloader24.xyz/proxy");
+                const masterUrl=new URL("https://rednoteapi.downloader24..xyz/proxy");
                 masterUrl.searchParams.append('url', highRes.masterUrl);
                 masterUrl.searchParams.append('type', "video/mp4");
                 masterUrl.searchParams.append('filename', `redDownloader-${item.video.media.videoId}.mp4`);
@@ -535,7 +535,7 @@
                     if (img.urlDefault.startsWith("http://")) {
                         img.urlDefault = img.urlDefault.replace("http://", "https://");
                     }
-                    const urlDefault=new URL("https://rednote.downloader24.xyz/proxy");
+                    const urlDefault=new URL("https://rednoteapi.downloader24.xyz/proxy");
                     urlDefault.searchParams.append('url', img.urlDefault);
                     urlDefault.searchParams.append('type', "image/jpeg");
                     urlDefault.searchParams.append('filename', `redDownloader-${img.urlDefault.substring(img.urlDefault.lastIndexOf('/') + 1)}.jpg`);
